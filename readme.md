@@ -1,4 +1,4 @@
-[![build status](https://secure.travis-ci.org/toddself/die-roller.png)](http://travis-ci.org/toddself/die-roller)
+[![build status](https://secure.travis-ci.org/toddself/roll-space.png)](http://travis-ci.org/toddself/roll-space)
 # Roll Dice
 
 Die rolling as as service.
