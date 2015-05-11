@@ -22,7 +22,7 @@ function roll(die, self) {
   for (let i = 0; i < instructions[0]; i++) {
     rolls.push(Math.floor(Math.random() * (instructions[1] - 1) + 1));
   }
-  
+
   const sum = rolls.reduce(function(a, n) {
     a += n;
     return a;
@@ -35,6 +35,11 @@ function roll(die, self) {
 }
 
 app.use(function *(){
+  if (!this.request.querystring) {
+    this.body = 'Format is [num]d[sides], e.g. 3d6. Multiple dice separated by commas. e.g. 2d10,5d4';
+    return;
+  }
+
   const payload = querystring.parse(this.request.querystring);
   const self= this;
   if (payload.dice.length < 3) {
@@ -50,10 +55,9 @@ app.use(function *(){
 });
 
 if (!module.parent) {
-  app.listen(process.env.PORT, function() {
-    console.log('running on', process.env.PORT);
+  app.listen(process.env.PORT || 8000, function() {
+    console.log('running on', process.env.PORT || 8000);
   });
-  console.log(module.parent, 'parent');
 } else {
   module.exports = app;
 }
