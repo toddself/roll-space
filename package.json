@@ -1,0 +1,32 @@
+{
+  "name": "die-roller",
+  "version": "1.0.0",
+  "description": "die rolling as a service",
+  "main": "index.js",
+  "scripts": {
+    "test": "tap test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/toddself/die-roller"
+  },
+  "keywords": [
+    "dnd",
+    "die",
+    "dice",
+    "rolling",
+    "random"
+  ],
+  "author": "Todd Kennedy <todd@selfassembled.org>",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/toddself/die-roller/issues"
+  },
+  "homepage": "https://github.com/toddself/die-roller",
+  "dependencies": {
+    "koa": "~0.20.0"
+  },
+  "engines": {
+    "iojs": "2.x"
+  }
+}
