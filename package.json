@@ -4,7 +4,8 @@
   "description": "die rolling as a service",
   "main": "index.js",
   "scripts": {
-    "test": "tap test.js"
+    "test": "tap test.js",
+    "start": "iojs index.js"
   },
   "repository": {
     "type": "git",
