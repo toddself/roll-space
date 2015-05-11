@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Rolling Dice as as Service</title>
+  <style>
+  body {
+    background: linear-gradient(to bottom, #7db9e8, #1E5799);
+    height: 100%;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    font-family: Roboto, sans-serif;
+  }
+
+  .box {
+    margin: 20px auto;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, .5);
+    padding: 8px;
+  }
+
+  .credit {
+    font-size: 8pt;
+    text-align: right;
+  }
+
+  h1 {
+    text-align: center;
+    font-family: Roboto, sans-serif;
+    font-size: 48pt;
+  }
+
+  h2 {
+    font-size: 18pt;
+    font-family: Roboto, sans-serif;
+    line-height: 20pt;
+  }
+
+  h3 {
+    font-size: 14pt;
+    font-family: Roboto, sans-serif;
+    line-height: 16pt;
+  }
+
+  .description {
+    font-family: Roboto, sans-serif;
+    font-size: 12pt;
+    line-height: 14pt;
+  }
+
+  pre {
+    display: block;
+    word-break: break-all;
+    word-wrap: break-word;
+    font: "Source Code Pro", monospace
+  }
+
+  .credit {
+    color: #fff;
+  }
+  a:visited {
+    color: #fff;
+  }
+
+  img {
+    height: 50px;
+  }
+
+  </style>
+  <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet"></link>
+  <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Source+Code+Pro:400,500"></link>
+  <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,300,100"></link>
+</head>
+<body class="bg">
+
+
+<h1><img src="/d20.png">Roll Dice as a Service<img src="/d20.png"></h1>
+
+<section class="description">
+Have you ever needed to roll dice and have no dice? Do you need to automate the rolling of dice? Do you need some time to kill? I obviously did.
+</section>
+
+
+<h2>But how do I roll some dice?</h2>
+
+<h3>Roll one set of dice!</h3>
+<section class="box usage">
+<pre>
+curl http://roll.space/?dice=3d6
+</pre>
+</section>
+<h3>Response</h3>
+<pre>
+<section class="box usage">
+{
+  "3d6": {
+    "sum": 8,
+    "rolls": [
+      2,
+      3,
+      3
+    ]
+  }
+}
+</pre>
+</section>
+
+
+<h3>Roll a lot of dice!</h3>
+<section class="box usage">
+<pre>
+curl http://roll.space/?dice=3d6,2d20,1d100
+</pre>
+</section>
+<h3>Response</h3>
+<pre>
+<section class="box usage">
+{
+  "3d6": {
+    "sum": 8,
+    "rolls": [
+      2,
+      3,
+      3
+    ]
+  },
+  "2d20": {
+    "sum": "31",
+    "rolls": [
+      20,
+      11
+    ]
+  },
+  "1d100": {
+    "sum": "50",
+    "rolls": [
+      50
+    ]
+  }
+}
+</pre>
+</section>
+
+<span class="credit">Lovingly created by <a href="https://tck.io">Todd Kennedy</a>, <a href="https://github.com/toddself/die-roller">Clone on github!</a></span>
+
+</body>
+</html>
