@@ -5,12 +5,24 @@ var koa = require('koa');
 
 var app = koa();
 
-function roll(die) {
-  const instructions = die.split('d');
+function roll(die, self) {
   const rolls = [];
+  const instructions = die.split('d').map(function(num) {
+    const n = parseInt(num, 10);
+    if (isNaN(n)){
+      self.throw(400, 'Format is [num]d[sides], e.g. 3d6. Multiple dice separated by commas. e.g. 2d10,5d4');
+    }
+    return n
+  });
+
+  if (instructions.length < 2 || instructions.length > 2) {
+    self.throw(400, 'Format is [num]d[sides], e.g. 3d6. Multiple dice separated by commas. e.g. 2d10,5d4');
+  }
+
   for (let i = 0; i < instructions[0]; i++) {
     rolls.push(Math.floor(Math.random() * (instructions[1] - 1) + 1));
   }
+  
   const sum = rolls.reduce(function(a, n) {
     a += n;
     return a;
@@ -24,6 +36,7 @@ function roll(die) {
 
 app.use(function *(){
   const payload = querystring.parse(this.request.querystring);
+  const self= this;
   if (payload.dice.length < 3) {
     this.throw(400, 'Format is [num]d[sides], e.g. 3d6. Multiple dice separated by commas. e.g. 2d10,5d4');
   }
@@ -31,11 +44,16 @@ app.use(function *(){
   const pairs = payload.dice.split(',');
   const resp = {};
   pairs.forEach(function(die){
-   resp[die] = roll(die)
+   resp[die] = roll(die, self)
   });
   this.body = resp;
 });
 
-app.listen(process.env.PORT || 8000, function(){
-  console.log('listening on', process.env.PORT || 8000);
-});
+if (!module.parent) {
+  app.listen(process.env.PORT, function() {
+    console.log('running on', process.env.PORT);
+  });
+  console.log(module.parent, 'parent');
+} else {
+  module.exports = app;
+}

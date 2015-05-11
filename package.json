@@ -29,5 +29,9 @@
   },
   "engines": {
     "iojs": "2.x"
+  },
+  "devDependencies": {
+    "superagent": "~1.2.0",
+    "tap": "~1.0.2"
   }
 }
