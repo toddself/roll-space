@@ -9,12 +9,13 @@ Die rolling as as service.
 git clone git@github.com:toddself/die-roller
 cd die-roller
 npm install
-npm start
+PORT=[port || 80000] npm start
 ```
 
 ```
 curl localhost:8000/?dice=3d6,6d12
 ```
+
 
 ## Demo
 
