@@ -1,5 +1,5 @@
 {
-  "name": "die-roller",
+  "name": "roll-space",
   "version": "1.0.0",
   "description": "die rolling as a service",
   "main": "index.js",

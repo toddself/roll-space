@@ -1,23 +1,31 @@
 'use strict';
 
-var fs = require('fs');
-var querystring = require('querystring');
-var koa = require('koa');
+const fs = require('fs');
+const querystring = require('querystring');
+const koa = require('koa');
 
-var app = koa();
+const app = koa();
+const msg = 'Format is [num]d[sides], e.g. 3d6. Multiple dice separated by commas. e.g. 2d10,5d4';
 
+/**
+ * Roll a set of dics
+ * @method roll
+ * @param {string[]} die Array of dice instructions (e.g. 3d6)
+ * @param {object} self reference to the koa ctx
+ * @returns {object} results of computing dice rolling
+ */
 function roll(die, self) {
   const rolls = [];
   const instructions = die.split('d').map(function(num) {
     const n = parseInt(num, 10);
     if (isNaN(n)){
-      self.throw(400, 'Format is [num]d[sides], e.g. 3d6. Multiple dice separated by commas. e.g. 2d10,5d4');
+      self.throw(400, msg);
     }
     return n
   });
 
   if (instructions.length < 2 || instructions.length > 2) {
-    self.throw(400, 'Format is [num]d[sides], e.g. 3d6. Multiple dice separated by commas. e.g. 2d10,5d4');
+    self.throw(400, msg);
   }
 
   for (let i = 0; i < instructions[0]; i++) {
@@ -35,6 +43,12 @@ function roll(die, self) {
   }
 }
 
+/**
+ * thunkify readFile
+ * @method read
+ * @param {string} path path to file
+ * @returns {function} co-compatible thunk for readFile
+ */
 function read(path) {
   return function (done) {
     fs.readFile(path, done);
@@ -53,7 +67,7 @@ app.use(function *(){
     const payload = querystring.parse(this.request.querystring);
     const self= this;
     if (payload.dice.length < 3) {
-      this.throw(400, 'Format is [num]d[sides], e.g. 3d6. Multiple dice separated by commas. e.g. 2d10,5d4');
+      this.throw(400, msg);
     }
 
     const pairs = payload.dice.split(',');
@@ -64,7 +78,6 @@ app.use(function *(){
     this.body = resp;
   }
 });
-
 
 
 if (!module.parent) {
